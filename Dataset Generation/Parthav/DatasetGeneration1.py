@@ -53,7 +53,6 @@ for d1 in data1:
     ans.append(dictionary)
     
 
-str = '      '
-print(str.isspace())
+
     
     
