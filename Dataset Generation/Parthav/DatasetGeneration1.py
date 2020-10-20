@@ -11,46 +11,35 @@ import random
 from random import randint
   
 # Opening JSON file 
-f = open('train.json',) 
+f = open('sample1.json',) 
   
 # returns JSON object as  
 # a dictionary 
 data = json.load(f) 
-  
-
-  
+   
 # Closing file 
 f.close() 
 
-l = []
-for d in data:
-    temp_l = d['Problem'].split('.')
-    for t in temp_l:
-        if '?' in t or t.strip().isdigit() or t.isspace() or len(t)==0:
-            temp_l.remove(t)
-    l = l + temp_l
+my_file = open("noise_dataset.txt", "r")
+content = my_file.read()
+noise_content_list = content.split("\n")
+my_file.close()
 
 
-# Opening JSON file 
-f = open('test.json',) 
-  
-# returns JSON object as  
-# a dictionary 
-data1 = json.load(f) 
-    
-# Closing file 
-f.close() 
 
 ans = []
-for d1 in data1:
-    flat_list = l
+for d1 in data:
     dictionary = {}
-    random_sentence = random.choice(temp_l)
+    random_sentence = random.choice(noise_content_list)
     dictionary = d1
     temp_question_list = dictionary['Problem'].split('.')
-    temp_question_list.insert(randint(1,len(temp_question_list)),random.choice(flat_list))
+    temp_question_list.insert(randint(1,len(temp_question_list)),random_sentence)
     dictionary['Problem'] = '.'.join(sentence for sentence in temp_question_list)
     ans.append(dictionary)
+    
+
+with open('Sample_data_generated.json', 'w') as fp:
+    json.dump(ans, fp)
     
 
 
