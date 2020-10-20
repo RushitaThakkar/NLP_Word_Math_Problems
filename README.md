@@ -10,3 +10,6 @@ Shivam Raval
 Rushita Thakkar
 
 Mentor - Kuntal Kumar Pal 
+
+
+Rushita Thakkar - Generating Questions from  Math Eqations. Plan on using an approach similar to https://github.com/ag1988/injecting_numeracy/tree/master/textual_data_generation
