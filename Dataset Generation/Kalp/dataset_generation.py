@@ -2,14 +2,41 @@
 """
 @author: kalp
 """
-
+import copy
 from googletrans import Translator
-translator = Translator()
+from nltk.translate.bleu_score import sentence_bleu
+import json
 s1='How much probability does coin has of getting four heads in a row'
-temp_translate=translator.translate(s1,src='en',dest='hi')
-s2=translator.translate(temp_translate.text,src='hi',dest='en')
-new_text=s2.text
+languages=['hi','gu']
+translates=[]
+
+for lang in languages:
+    translator = Translator()
+    temp_translate=translator.translate(s1,src='en',dest=lang)
+    eng_translate=translator.translate(temp_translate.text,src=lang,dest='en')
+    translates.append(eng_translate)
+
+for items in translates:
+    print(items.text)
+
+#score = sentence_bleu(s1, new_text, weights=(0.25, 0.25, 0.25, 0.25))
 
 ####     Trying with different types of Data from MathQA
 
-####     Importing and Pre-processing of data
+####     Importing data
+
+with open('MathQA/test.json') as json_file:
+    test_data=json.load(json_file)
+    
+with open('MathQA/train.json') as json_file:
+    train_data=json.load(json_file)
+
+new_test=copy.deepcopy(test_data)
+new_train=copy.deepcopy(train_data)
+
+for question in new_test:
+    translator = Translator()
+    temp_translate=translator.translate(question['Problem'],src='en',dest='hi')
+    eng_translate=translator.translate(temp_translate.text,src='hi',dest='en')
+    question['Problem']=eng_translate.text
+
