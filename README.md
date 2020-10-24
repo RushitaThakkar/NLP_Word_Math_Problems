@@ -10,3 +10,6 @@ Shivam Raval
 Rushita Thakkar
 
 Mentor - Kuntal Kumar Pal 
+
+
+The dataset generation folder contain subfolder with name of each group members and each sub folder contains files with code for data generation.
