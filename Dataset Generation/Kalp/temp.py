@@ -8,7 +8,7 @@
 import json
 
 
-with open('MathQA/test.json') as json_file:
+with open('new_data.json') as json_file:
     test_data=json.load(json_file)
     
 with open('MathQA/train.json') as json_file:

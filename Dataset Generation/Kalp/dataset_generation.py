@@ -7,9 +7,24 @@ from googletrans import Translator
 #from nltk.translate.bleu_score import sentence_bleu
 import json
 import time
+
+def paraphrase(sentance,lang):
+    translator = Translator()
+    temp_translate=translator.translate(sentance,src='en',dest=lang)
+    time.sleep(1)
+    eng_translate=translator.translate(temp_translate.text,src=lang,dest='en')
+    time.sleep(1)
+    return eng_translate.text
+
+'''
 s1='How much probability does coin has of getting four heads in a row'
 languages=['hi','gu']
 translates=[]
+for lang in languages:
+    temp=paraphrase(s1,lang)
+    translates.append(temp)
+    print(temp)
+'''
 
 
 #score = sentence_bleu(s1, new_text, weights=(0.25, 0.25, 0.25, 0.25))
@@ -18,13 +33,6 @@ translates=[]
 
 ####     Importing data
 
-def paraphrase(sentance):
-    translator = Translator()
-    temp_translate=translator.translate(sentance,src='en',dest='hi')
-    time.sleep(1)
-    eng_translate=translator.translate(temp_translate.text,src='hi',dest='en')
-    time.sleep(1)
-    return eng_translate.text
 
 
 with open('MathQA/test.json') as json_file:
@@ -62,20 +70,19 @@ for question in train_data:
     if count==0:
         break
         
-        
-for i in range(99,3000):
+    
+for i in range(1191,3500):
     translator = Translator()
-    temp_translate=translator.translate(train_data[i]['Problem'],src='en',dest='hi')
-    eng_translate=translator.translate(temp_translate.text,src='hi',dest='en')
-    train_data[i]['Problem']=eng_translate.text
+    temp_translate=translator.translate(new_train[i]['Problem'],src='en',dest='de')
+    eng_translate=translator.translate(temp_translate.text,src='de',dest='en')
+    new_train[i]['Problem']=eng_translate.text
     print(i)
     with open('new_data.json', 'a') as fp:
+        json.dump(new_train[i], fp)
         fp.write(',')
-        json.dump(test_data[i], fp)
         fp.write('\n')
     
-    '''
-    
+
 new_general=[]
 new_geometry=[]
 new_gain=[]
@@ -86,9 +93,8 @@ new_other=[]
 i=1
 
 
-
 for question in general:
-    pq=paraphrase(question['Problem'])
+    pq=paraphrase(question['Problem'],'de')
     question['Problem']=pq
     new_general.append(question)
     print("general-",i)
@@ -98,7 +104,7 @@ with open('general.json', 'w') as fp:
     json.dump(new_general, fp)
 
 for question in geometry:
-    pq=paraphrase(question['Problem'])
+    pq=paraphrase(question['Problem'],'de')
     question['Problem']=pq
     new_geometry.append(question)
     
@@ -106,7 +112,7 @@ with open('geometry.json', 'w') as fp:
     json.dump(new_geometry, fp)
 
 for question in gain:
-    pq=paraphrase(question['Problem'])
+    pq=paraphrase(question['Problem'],'de')
     question['Problem']=pq
     new_gain.append(question)
     
@@ -114,7 +120,7 @@ with open('gain.json', 'w') as fp:
     json.dump(new_gain, fp)
     
 for question in probability:
-    pq=paraphrase(question['Problem'])
+    pq=paraphrase(question['Problem'],'de')
     question['Problem']=pq
     new_probability.append(question)
     
@@ -122,10 +128,9 @@ with open('probability.json', 'w') as fp:
     json.dump(new_probability, fp)
     
 for question in other:
-    pq=paraphrase(question['Problem'])
+    pq=paraphrase(question['Problem'],'de')
     question['Problem']=pq
     new_other.append(question)
     
 with open('other.json', 'w') as fp:
     json.dump(new_other, fp)
-    '''
