@@ -211,7 +211,7 @@ def date_diff(typ=''):
 def triangle_questions():
     x = random.randint(0, 80)
     y = random.randint(0, 80)
-    question = ' The two angles of a triangle are ' + str(x) + ' and ' + str(y) + 'respectively ' 
+    question = ' The two angles of a triangle are ' + str(x) + ' and ' + str(y) + ' respectively ' 
     question += ' what is the third angle '
     val = 180 - x - y
     expr = "120 - " + str(x) + '-' + str(y)
