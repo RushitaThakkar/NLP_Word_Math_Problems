@@ -96,4 +96,5 @@ jsonlines
 tqdm
 ujson
 
+Works with Python3.8
 
