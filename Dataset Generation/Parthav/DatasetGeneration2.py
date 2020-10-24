@@ -1,61 +1,71 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct 17 22:34:31 2020
-
-@author: parthavpatel
-"""
-
 # importing libraries 
-import random 
-from nltk.corpus import names 
-import nltk 
+import random  
 from random import randint
-import pandas as pd
-  
-def gender_features(word): 
-    return {'last_letter':word[-1]} 
- 
-    
-nltk.download('names')
-# preparing a list of examples and corresponding class labels. 
-males = [(name) for name in names.words('male.txt')]
-females = [(name) for name in names.words('female.txt')]
-objects = ['table', 'choclate', 'balloon', 'pen','marbles']  
+import json
 
 
-dict = {"question": "Quent had 10 pen.Bela gave Kanya 4 of the choclate.Quent gave Sukey 4 of the pen. How many pen does Quent now have?", 
-        "options": ["A)5", "B)9", "C)6", "D)8", "E)3"],
-        "rationale": "10-6=4", 
-        "correct": "C"}
-  
-s = "{0} had 10 {2}.{0} gave {1} 4 of the {2}. How many {2} does {0} now have?"
-temp_s = dict['question']
-l = []
+
+# loading list of names from the file created 
+nam = open("names.txt", "r")
+list_names = nam.readlines()
+nam.close()
+
+# loading list of synonyms from the file created
+obj = open("contains_synonyms.txt", "r")
+list_contains = obj.readlines()
+obj.close()
+
+# loading list of synonyms from the file created
+obj = open("sell_synonyms.txt", "r")
+list_sell = obj.readlines()
+obj.close()
+
+
+# loading list of synonyms from the file created 
+obj = open("objects.txt", "r")
+list_objects = obj.readlines()
+obj.close()
+
+
+
+
+s = ["{0} {6} {3} {2}.{0} {7} {1} {4} of the {2}. How many {2} does {0} now have?",
+     "{0} {6} {3} {5}. {0} {7} {4} {5} to {1}.How many {5} does {0} now have?",
+     ]
+
+final_list = []
 temp_list = []
-for i in range(100):
-    temp_s = "{0} had 10 {2}.{0} gave {1} 4 of the {2}. How many {2} does {0} now have?".format(random.choice(males),random.choice(females),random.choice(objects))
-    #print(temp_s)
-    d = {}
-    d['question'] = temp_s
-    d['options'] = dict['options']
-    d['rationale'] = dict['rationale']
-    d['correct'] = dict['correct']
-    temp_list.append(temp_s.split('.')[:2])
-    l.append(d)
-    
-flat_list = []
-for sublist in temp_list:
-    for item in sublist:
-        flat_list.append(item)
+for t_s in s:
+    l = []
+    for i in range(500):
+        number1 = random.randint(1,1000)
+        number2 = random.randint(1,1000) + number1
+        #temp_s = "{0} had {3} {2}. {0} gave {1} {4} of the {2}. How many {2} does {0} now have?".format(random.choice(list_names),random.choice(list_names),random.choice(list_objects),number2,number1)
+        temp_s = t_s.format(random.choice(list_names),random.choice(list_names),random.choice(list_objects),number2,number1,random.choice(list_objects),random.choice(list_contains),random.choice(list_sell)) 
+        d = {}
+        d['Passage'] = ''
+        d['Question'] = temp_s
+        d["Equation"] = "{0}-{1}={2}".format(number2,number1,(number2-number1))
+        d['Answer'] = number2 - number1
+        d["Reasoning Type"] = ''
+        d["Type"] = 'PP_random_question_generation_with_template_and_noise_insertion'
+        temp_list.append(temp_s.split('.')[:2])
+        l.append(d)
         
+    flat_list = []
+    for sublist in temp_list:
+        for item in sublist:
+            flat_list.append(item)
 
-        
-
-for item in l:
-    #print(item)
-    temp_question_list = item['question'].split('.')
-    temp_question_list.insert(randint(1,len(temp_question_list)),random.choice(flat_list))
-    item['question'] = '.'.join(sentence for sentence in temp_question_list)
-    print(item)
+    for item in l:
+        #print(item)
+        temp_question_list = item['Question'].split('.')
+        temp_question_list.insert(randint(1,len(temp_question_list)-1),random.choice(flat_list))
+        item['Question'] = '.'.join(sentence for sentence in temp_question_list)
+        final_list.append(item)
     
+with open('Sample_data_generated_1.jsonl', 'w') as outfile:
+    for entry in final_list:
+        json.dump(entry, outfile)
+        outfile.write('\n')
+        

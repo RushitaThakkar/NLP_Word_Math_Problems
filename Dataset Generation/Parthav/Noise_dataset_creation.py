@@ -49,13 +49,13 @@ def data_cleaning(data):
                 else:
                     l.append(t)
             else:
-                print("true")
+                pass
     return l
 
 
 if __name__ == '__main__':
     #Change the file name to insert new noise sentences in the noise sentence dataset
-    file_name = 'sample4.json'
+    file_name = 'input_noise_creation.json'
     noise_sentence_generation(file_name)
     
 
