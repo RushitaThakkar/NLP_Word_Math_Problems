@@ -11,3 +11,6 @@ Text Spinner basically changes the words orientation and original words are chan
 ![](./img/ap_1.png)
 
 ---
+
+In addition to generating new samples, the BLEU-1,2,3,4 scores are calculated between the original and generated sample to analyze the similarity between the text spinned generated sample and original sample. The original sample, text spinned sample and their BLEU scores are stored in Results.csv
+
