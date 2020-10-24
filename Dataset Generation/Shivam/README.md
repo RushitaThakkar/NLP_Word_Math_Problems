@@ -16,6 +16,13 @@ In addition to generating new samples, the BLEU-1,2,3,4 scores are calculated be
 
 
 **2. Masking and changing the variable to compute:**
+
 The implementation of this approach can be found in the folder Masking. 
+
+---
+
+![](./img/ap_2.png)
+
+---
 
 
