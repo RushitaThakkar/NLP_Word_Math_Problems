@@ -17,7 +17,12 @@ In addition to generating new samples, the BLEU-1,2,3,4 scores are calculated be
 
 **2. Masking and changing the variable to compute:**
 
-The implementation of this approach can be found in the folder Masking. 
+The implementation of this approach can be found in the folder Masking. This approach uses standford NLP parser to get the parse tree for the extracted question. The parser can be dowload from https://stanfordnlp.github.io/CoreNLP/download.html. Before running the main program mask.py the stanford NLP parser have to be started using the command: 
+``` 
+java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000. 
+```
+The POSTree.py contains the code for transforming the question to sentence using the Parse tree given by Stanford NLP parser.
+
 
 ---
 
