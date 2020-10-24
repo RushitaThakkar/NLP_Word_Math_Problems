@@ -22,6 +22,7 @@ The implementation of this approach can be found in the folder Masking. This app
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000. 
 ```
 The POSTree.py contains the code for transforming the question to sentence using the Parse tree given by Stanford NLP parser.
+The figure below explains the approach in detail where, firstly the samples from AQuA dataset are taken and the question is extracted from the sample. The question is then passed to the Standford NLP parser which provides the parse tree for the question which is used to convert the question into a sentence. The sentence contains the blank keyword which is the answer of the question and the value of the answer from original samples is filled in the sentence. After that, the whole sample is a paragraph and we can mask any other random number present in the question so that the computation and reasoning required for calculating the mask number would be diﬀerent than the original question.  
 
 
 ---
