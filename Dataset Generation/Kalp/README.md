@@ -10,14 +10,14 @@ Methods Im working on.
 
 ## Folder Structure   
    
-dataset_generation.py: Generates New samples from MathQA data set and saves as JSON file. For MathQA dataset it will also create dataset category wise for each category. \
-  Before running: Change the file path in Line 41 to dataset from which new samples needs to be generated \
-  Steps to run: Simpally running code from command line or IDE would create new samples.     \
-    - Googletrans will block your IP if requested for too many times. I suggest using VPN for running code.   \
+dataset_generation.py: Generates New samples from MathQA data set and saves as JSON file. For MathQA dataset it will also create dataset category wise for each category.   
+  Before running: Change the file path in Line 41 to dataset from which new samples needs to be generated   
+  Steps to run: Simpally running code from command line or IDE would create new samples.    
+    - Googletrans will block your IP if requested for too many times. I suggest using VPN for running code.   
     
-dataset_conversion.py: This file converts generated JSON files into required Uniform format JSONL file.  \
+dataset_conversion.py: This file converts generated JSON files into required Uniform format JSONL file.  
 
-created_dataset_comparision: This file has script to compare generated samples with original samples. It shows metric for how much they match with original one. \
+created_dataset_comparision: This file has script to compare generated samples with original samples. It shows metric for how much they match with original one.  
    
 
 2. Paraphrasing Question manually using NLTK
