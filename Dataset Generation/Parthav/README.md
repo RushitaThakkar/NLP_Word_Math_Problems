@@ -42,5 +42,18 @@ Template : ["{0} {6} {3} {2}.{0} {7} {1} {4} of the {2}. How many {2} does {0} n
 'Question': 'Lucio had 10 balloon.Lucio gave Emera 4 of the balloon.{Vaughn had 10 pen}. How many balloon does Lucio now have?',  
 'Equation': '10-6=4', 
 'Reasoning Type': ,
-'Answer': 'C',
+'Answer': 4,
 'Type': 'PP_Random_noise_insertion'} 
+
+
+###INSTRUCTION TO RUN CODE#####
+
+All the files are placed in the Dataset Generation/Parthav folder.
+Two python files that should be run to generate the datset:
+1) DatasetGeneration1.py
+2) datasetGenration2.py
+The files can e run directly.
+All the data files are placed in the same folder
+all the dataset will be generated in the same folder.
+NOTE: All the .txt files placed in the folder are required to run the python file.
+
