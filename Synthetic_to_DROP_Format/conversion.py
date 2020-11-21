@@ -9,6 +9,7 @@ import json
 import os
 from os import listdir
 from os.path import isfile, join
+import random
 
 def is_number(s):
     '''
@@ -42,10 +43,10 @@ def conversion_function_to_DROP_dataset():
     
         else:
             continue #to abvoid reading python file in the same directory
-           
-        for i in range(len(synt_data)):
-            data = synt_data[i]
-            key = data['Type'] + '_{}'.format(str(i))
+        count = 0   
+        while count < 3000:
+            data = random.choice(synt_data) 
+            key = data['Type'] + '_{}'.format(str(count))
             drop[key] = {}
             drop[key]['passage'] = ''
             drop[key]['qa_pairs'] = []
@@ -65,7 +66,8 @@ def conversion_function_to_DROP_dataset():
             
             drop[key]['qa_pairs'].append(qa_pair)
             drop[key]['wiki_url'] = 'https://en.wikipedia.org'
-    
+            count += 1
+            
     json_object = json.dumps(drop, indent = 4) 
     
     with open("output/DropFormatData.json", "w") as outfile: 
