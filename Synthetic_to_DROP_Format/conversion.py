@@ -44,7 +44,7 @@ def conversion_function_to_DROP_dataset():
         else:
             continue #to abvoid reading python file in the same directory
         count = 0   
-        while count < 3000:
+        while count < 200:
             data = random.choice(synt_data) 
             key = data['Type'] + '_{}'.format(str(count))
             drop[key] = {}
@@ -70,7 +70,7 @@ def conversion_function_to_DROP_dataset():
             
     json_object = json.dumps(drop, indent = 4) 
     
-    with open("output/DropFormatData.json", "w") as outfile: 
+    with open("output/DropFormatData_dev.json", "w") as outfile: 
         outfile.write(json_object) 
     
     print('success')
