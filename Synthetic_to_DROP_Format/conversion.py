@@ -23,7 +23,7 @@ def is_number(s):
         return True
     except ValueError:
         return False
-    
+i = 0    
 def conversion_function_to_DROP_dataset():    
     print('start')
     drop={}
@@ -42,11 +42,15 @@ def conversion_function_to_DROP_dataset():
                 synt_data.append(dict_data.copy())
     
         else:
-            continue #to abvoid reading python file in the same directory
-        count = 0   
-        while count < 200:
-            data = random.choice(synt_data) 
-            key = data['Type'] + '_{}'.format(str(count))
+            continue #to abvoid reading python file in the same directory  
+
+        sample_index_list = random.sample(range(0, len(synt_data)), int(len(synt_data)/2))
+        for i in sample_index_list:
+            data = synt_data[i]
+            if data['Answer'] == "":
+                print("***")
+                continue
+            key = data['Type'] + '_{}'.format(str(i))
             drop[key] = {}
             drop[key]['passage'] = ''
             drop[key]['qa_pairs'] = []
@@ -66,11 +70,11 @@ def conversion_function_to_DROP_dataset():
             
             drop[key]['qa_pairs'].append(qa_pair)
             drop[key]['wiki_url'] = 'https://en.wikipedia.org'
-            count += 1
+
             
     json_object = json.dumps(drop, indent = 4) 
     
-    with open("output/DropFormatData_dev.json", "w") as outfile: 
+    with open("output/DropFormatData_train.json", "w") as outfile: 
         outfile.write(json_object) 
     
     print('success')
