@@ -10,6 +10,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 import random
+import uuid
 
 def is_number(s):
     '''
@@ -23,6 +24,14 @@ def is_number(s):
         return True
     except ValueError:
         return False
+    
+    
+def create_validated_answer_list(answer_dict):
+    validated_answer_list = []
+    for i in range(0,3):
+        validated_answer_list.append(answer_dict)
+    return validated_answer_list
+        
 i = 0    
 def conversion_function_to_DROP_dataset():    
     print('start')
@@ -44,7 +53,7 @@ def conversion_function_to_DROP_dataset():
         else:
             continue #to abvoid reading python file in the same directory  
 
-        sample_index_list = random.sample(range(0, len(synt_data)), int(len(synt_data)/2))
+        sample_index_list = random.sample(range(0, len(synt_data)), 200)
         for i in sample_index_list:
             data = synt_data[i]
             if data['Answer'] == "":
@@ -59,7 +68,7 @@ def conversion_function_to_DROP_dataset():
             qa_pair['question'] = data['Question']
             qa_pair['answer'] = {}
             qa_pair['answer']['date'] ={"day": "","month": "","year": ""}
-            qa_pair['query_id'] = ''
+            qa_pair['query_id'] = str(uuid.uuid1())
             if is_number(data['Answer']):
                 qa_pair['answer']['number'] = data['Answer']
                 qa_pair['answer']['spans'] = []
@@ -67,14 +76,16 @@ def conversion_function_to_DROP_dataset():
                 qa_pair['answer']['number'] = ''
                 qa_pair['answer']['spans'] = [data['Answer']]        
             
-            
+            qa_pair['validated_answers'] = create_validated_answer_list(qa_pair['answer'])
+            if not qa_pair['validated_answers']:
+                print("::::")
             drop[key]['qa_pairs'].append(qa_pair)
             drop[key]['wiki_url'] = 'https://en.wikipedia.org'
 
             
     json_object = json.dumps(drop, indent = 4) 
     
-    with open("output/DropFormatData_train.json", "w") as outfile: 
+    with open("output/DropFormatData_dev.json", "w") as outfile: 
         outfile.write(json_object) 
     
     print('success')
