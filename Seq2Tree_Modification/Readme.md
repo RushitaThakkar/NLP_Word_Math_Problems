@@ -8,7 +8,7 @@ We implemented the modification by loading pretrained BERT, getting embeddings f
 ---
 **Figure represting how the BERT embeddings were generated.**
 
-![](./img/Untitled Diagram-Page-5.png)
+![](./img/arch.png)
 
 ---
 
