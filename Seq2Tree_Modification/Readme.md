@@ -5,9 +5,15 @@ This folder contains the code for the modifcations we did on the original Seq2Tr
 ---
 **Loss vs Epochs Graph showing modified version is performing better than orginal model without loading pretrained embeddings**
 
-![](./img/loss_vs_epoch.png)
+![](./img/loss_vs_epochs.png)
 
 ---
 
+---
+**Testing Accuracy vs Epochs Graph showing modified version is giving 74.6% accuracy in 60 epochs while their original model with embedding size 768 does not give a good performance.**
+
+![](./img/acc_vs_epoch.png)
+
+---
 
 
